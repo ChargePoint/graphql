@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/graphql-go/graphql"
-	"github.com/graphql-go/graphql/testutil"
+	"github.com/ChargePoint/graphql"
+	"github.com/ChargePoint/graphql/testutil"
 )
 
 type Person struct {
@@ -46,7 +46,7 @@ var personSource = Person{
 		City:   "Jakarta",
 	},
 	Friends: friendSource,
-	Hobbies:[]string{"eat","sleep","code"},
+	Hobbies: []string{"eat", "sleep", "code"},
 }
 
 var friendSource = []Friend{

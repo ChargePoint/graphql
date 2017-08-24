@@ -4,10 +4,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/graphql-go/graphql"
-	"github.com/graphql-go/graphql/gqlerrors"
-	"github.com/graphql-go/graphql/language/location"
-	"github.com/graphql-go/graphql/testutil"
+	"github.com/ChargePoint/graphql"
+	"github.com/ChargePoint/graphql/gqlerrors"
+	"github.com/ChargePoint/graphql/language/location"
+	"github.com/ChargePoint/graphql/testutil"
 )
 
 type testDog struct {
@@ -158,7 +158,6 @@ func TestIsTypeOfUsedToResolveRuntimeTypeForInterface(t *testing.T) {
 	}
 }
 
-
 func TestAppendTypeUsedToAddRuntimeCustomScalarTypeForInterface(t *testing.T) {
 
 	petType := graphql.NewInterface(graphql.InterfaceConfig{
@@ -247,7 +246,6 @@ func TestAppendTypeUsedToAddRuntimeCustomScalarTypeForInterface(t *testing.T) {
 				},
 			},
 		}),
-
 	})
 	if err != nil {
 		t.Fatalf("Error in schema %v", err.Error())
@@ -296,8 +294,6 @@ func TestAppendTypeUsedToAddRuntimeCustomScalarTypeForInterface(t *testing.T) {
 		t.Fatalf("Unexpected result, Diff: %v", testutil.Diff(expected, result))
 	}
 }
-
-
 
 func TestIsTypeOfUsedToResolveRuntimeTypeForUnion(t *testing.T) {
 

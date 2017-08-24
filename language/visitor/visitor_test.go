@@ -6,13 +6,13 @@ import (
 	"testing"
 
 	"fmt"
-	"github.com/graphql-go/graphql"
-	"github.com/graphql-go/graphql/language/ast"
-	"github.com/graphql-go/graphql/language/kinds"
-	"github.com/graphql-go/graphql/language/parser"
-	"github.com/graphql-go/graphql/language/printer"
-	"github.com/graphql-go/graphql/language/visitor"
-	"github.com/graphql-go/graphql/testutil"
+	"github.com/ChargePoint/graphql"
+	"github.com/ChargePoint/graphql/language/ast"
+	"github.com/ChargePoint/graphql/language/kinds"
+	"github.com/ChargePoint/graphql/language/parser"
+	"github.com/ChargePoint/graphql/language/printer"
+	"github.com/ChargePoint/graphql/language/visitor"
+	"github.com/ChargePoint/graphql/testutil"
 )
 
 func parse(t *testing.T, query string) *ast.Document {
