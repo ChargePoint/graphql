@@ -1,0 +1,6 @@
+{
+  "project.name" : "graphql",
+  "phabricator.uri" : "https://phabricator.chargepoint.com/",
+  "arc.land.onto.default": "master",
+  "base": "git:merge-base(origin/master), arc:prompt"
+}

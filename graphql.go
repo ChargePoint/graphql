@@ -33,7 +33,7 @@ type Params struct {
 	Context context.Context
 }
 
-func Do(p Params) *Result {
+func do(p Params, synchronous bool) *Result {
 	source := source.NewSource(&source.Source{
 		Body: []byte(p.RequestString),
 		Name: "GraphQL request",
@@ -52,12 +52,25 @@ func Do(p Params) *Result {
 		}
 	}
 
-	return Execute(ExecuteParams{
+	return execute(ExecuteParams{
 		Schema:        p.Schema,
 		Root:          p.RootObject,
 		AST:           AST,
 		OperationName: p.OperationName,
 		Args:          p.VariableValues,
 		Context:       p.Context,
-	})
+	}, synchronous)
+}
+
+func Do(p Params) *Result {
+	return do(p, false)
+}
+
+// DoSynchronously will execute the target handler within the current goroutine.
+// This is intended to be used by unit tests to run the handler under test on the
+// test goroutine so any calls to testing.Fatalf through interactions between
+// the handler and injected mocks will be properly handled and reported by Go's
+// mock controller.
+func DoSynchronously(p Params) *Result {
+	return do(p, true)
 }

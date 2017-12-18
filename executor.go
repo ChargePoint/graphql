@@ -23,16 +23,14 @@ type ExecuteParams struct {
 	Context context.Context
 }
 
-func Execute(p ExecuteParams) (result *Result) {
+func execute(p ExecuteParams, synchronous bool) (result *Result) {
 	// Use background context if no context was provided
 	ctx := p.Context
 	if ctx == nil {
 		ctx = context.Background()
 	}
 
-	resultChannel := make(chan *Result)
-
-	go func(out chan<- *Result, done <-chan struct{}) {
+	f := func(out chan<- *Result, done <-chan struct{}) {
 		result := &Result{}
 
 		exeContext, err := buildExecutionContext(BuildExecutionCtxParams{
@@ -80,7 +78,16 @@ func Execute(p ExecuteParams) (result *Result) {
 		case <-done:
 		}
 
-	}(resultChannel, ctx.Done())
+	}
+
+	var resultChannel chan *Result
+	if synchronous {
+		resultChannel = make(chan *Result, 10)
+		f(resultChannel, ctx.Done())
+	} else {
+		resultChannel = make(chan *Result)
+		go f(resultChannel, ctx.Done())
+	}
 
 	select {
 	case <-ctx.Done():
@@ -90,6 +97,10 @@ func Execute(p ExecuteParams) (result *Result) {
 		result = r
 	}
 	return
+}
+
+func Execute(p ExecuteParams) (result *Result) {
+	return execute(p, false)
 }
 
 type BuildExecutionCtxParams struct {
